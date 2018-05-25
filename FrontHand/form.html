@@ -1,0 +1,256 @@
+<html>
+<head>
+	<title>Registration Form</title>
+	<style type="text/css">
+		h3 {
+			font-family: Calibri;
+			font-size: 22pt;
+			font-style: normal;
+			color: lightgreen;
+			font-weight: bold;
+			
+			text-align: center;
+			
+		}
+		p {
+			color: black;
+			font-size: larger;
+		}
+		table {
+			font-family: Calibri;
+			color: white;
+			font-size: 11pt;
+			background-color:lightblue;
+			border-collapse: inherit;
+			border: 2px solid navy;
+		}
+			table.inner {
+				border: 0px;
+			}
+	</style>
+</head>
+
+<body background="1.jpg">
+	<h3>REGISTRATION FORM</h3>
+	<form action="" name="myForm">
+
+		<table align="center" cellpadding="10">
+
+			<!----- First Name ---------------------------------------------------------->
+			<tr>
+				<td>FIRST NAME</td>
+				<td>
+					<input id="First_Name" type="text" name="First_Name" maxlength="30" autocomplete="on" autofocus onblur="isFirstNameEmpty(this, document.getElementById('first_name_help'));" required/>
+					<p id="first_name_help"></p>					
+				</td>
+			</tr>
+
+			<!----- Last Name ---------------------------------------------------------->
+			<tr>
+				<td>LAST NAME</td>
+				<td>
+					<input type="text" name="Last_Name" id="Last_Name" maxlength="30" autocomplete="on" onblur="isLastNameEmpty(this, document.getElementById('last_name_help'));" required/>
+					<p id="last_name_help"></p>
+				</td>
+			</tr>
+			<!----- Email Id ---------------------------------------------------------->
+			<tr>
+				<td>EMAIL ID</td>
+				<td><input type="text" name="Email_Id" id="Email_Id" maxlength="100" autocomplete="on" onblur="isEmailValid(this, getElementById('email_help'));" required/>
+				<p id="email_help"></p>
+				</td>
+			</tr>
+
+			<!----- Mobile Number ---------------------------------------------------------->
+			<tr>
+				<td>MOBILE NUMBER</td>
+				<td>
+					<input type="text" name="Mobile_Number" id="Mobile_Number" maxlength="10" autocomplete="on" onkeypress="return isNumberKey(event, getElementById('mobile_help1'));" onblur="isMobileValid(this, getElementById('mobile_help'));" required />
+					<p id="mobile_help1"></p>
+					<p id="mobile_help"></p>
+				</td>
+			</tr>
+			<!----- Age ---------------------------------------------------------->
+			<tr>
+				<td>Age</td>
+				<td>
+					<input type="text" name="age" id="age" maxlength="3" autocomplete="on" onkeypress="return isNumberKey(event, getElementById('age_help1'));" onblur="isMobileValid(this, getElementById('age_help'));" required />
+					<p id="age_help1"></p>
+					<p id="age_help"></p>
+				</td>
+			</tr>
+			
+			<!----- Degree ---------------------------------------------------------->
+			<tr>
+                        <th class="degree"><label for="degree" class="label">Degree</label></th>
+                        <td>
+                            <select name="Degree" id="degree" style="width:160px">
+                                <option value="0">Select</option>
+                                <option value="1">M.Tech</option>
+                                <option value="2">B.Tech</option>
+                                <option value="3">BE</option>
+                                <option value="4">B.COM</option>
+                            </select>
+                        </td>
+			<tr>
+                    <th class="tdLabel"><label for="register_password" class="label">Password</label></th>
+                    <td><input type="password" id="register_password" name="psw" style="width:170px" maxlength="12" onblur="isPassword(this, document.getElementById('password_help'))" required/></td>
+                    
+                </tr>
+                <tr><td colspan="2"><span id="password_help"></span></td></tr>
+                <tr>
+                    <th class="tdLabel"><label for="con_register_password" class="label">Confirm Password</label></th>
+                    <td><input type="password" name="conpassword" id="con_register_password" style="width:170px" maxlength="12"  onblur="isSamePass(this, document.getElementById('conpassword_help'))" required /></td>
+                    
+                </tr>
+
+
+			<!----- Submit and Reset ------------------------------------------------->
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="Submit" onclick="validateForm();" />					
+					<input type="reset" value="Reset" />
+				</td>
+				</tr>
+			</table>
+		</form>
+		<script>
+			function validateForm() {
+				var FirstName = document.myForm.First_Name.value;
+				var LastName = document.myForm.Last_Name.value;
+				var EmailId = document.myForm.Email_Id.value;
+				var MobileNumber = document.myForm.Mobile_Number.value;
+				var Age = document.myForm.age.value;
+				var password = document.myForm.psw.value;
+				var Gender = document.myForm.Gender.value;
+				var degree = document.myForm.degree.value;
+					localStorage.setItem("FirstName", FirstName);
+					localStorage.setItem("LastName", LastName);
+					localStorage.setItem("EmailId", EmailId);
+					localStorage.setItem("MobileNumber", MobileNumber);
+					localStorage.setItem("Age", Age);
+					localStorage.setItem("password", password);
+					localStorage.setItem("degree", Courses);
+			}
+			function editNodeText(regex, input, helpId, helpMessage) {
+				// If the wrong information was entered, warn them
+				if (!regex.test(input)) {
+					if (helpId != null)
+						// We need to show a warning
+						// Remove any warnings that may exist
+						while (helpId.childNodes[0]) {
+							helpId.removeChild(helpId.childNodes[0]);
+						}
+					// Add new warning
+					helpId.appendChild(document.createTextNode(helpMessage));
+				}
+				else {
+					// If the right information was entered, clear the help message
+					if (helpId != null) {
+						// Remove any warnings that may exist
+						while (helpId.childNodes[0]) {
+							helpId.removeChild(helpId.childNodes[0]);
+						}
+					}
+				}
+			}
+			// inputField – ID Number for the html text box
+			// helpId – ID Number for the child node I want to print a warning in
+			function isFirstNameEmpty(inputField, helpId) {
+				// See if the input value contains any text
+				return editNodeText(/^[A-Za-z]{3,30}$/, inputField.value, helpId, "Please enter valid first name! (Must be 3-30 characters, a-z and A-Z only)");
+			}
+			function isLastNameEmpty(inputField, helpId) {
+				return editNodeText(/^[A-Za-z]{3,30}$/, inputField.value, helpId, "Please enter valid last name! (Must be 3-30 characters a-z and A-Z only)");
+			}
+			function isEmailValid(inputField, helpId) {
+				return editNodeText(/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, inputField.value, helpId, "Enter a valid E-mail address!");
+			}
+			function isPassword(inputField, helpId) {
+			return editNodeText(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@ $ % & *]).{8,12}/, inputField.value, helpId, "At least one number,uppercase,lowercase letter,{@,$,%,&,*} and at least 8 or more characters");
+}
+			function isMobileValid(inputField, helpId) {
+				return editNodeText(/^[0-9]{10}$/, inputField.value, helpId, "Enter valid 10 digit Mobile number!");
+			}
+			function isMobileValid(inputField, helpId) {
+				return editNodeText(/^[0-9]$/, inputField.value, helpId, "Enter Age in Number");
+			}
+			function Validate()
+			{
+			var e = document.getElementById("degree");
+			var strUser = e.options[e.selectedIndex].value;
+			//if you need text to be compared then use
+			var strUser1 = e.options[e.selectedIndex].text;
+			if(strUser==0) //for text use if(strUser1=="Select")
+			{
+			alert("Please select a user");
+			}
+			}
+			function isGenderValid(inputField, helpId) {
+				var gender = document.myForm.Gender;
+				var flag = true;
+				for (var i = 0; i < gender.length; i++) {
+					if (gender[i].checked) {
+						flag = false;
+						break;
+					}
+				}
+				if (helpId != null) {
+					// Remove any warnings that may exist
+					while (helpId.childNodes[0]) {
+						helpId.removeChild(helpId.childNodes[0]);
+					}
+				}
+				if (flag) {
+					helpId.appendChild(document.createTextNode("Please select your gender!"));
+					gender[0].focus();
+					return false;
+				}
+			}
+			function isNumberKey(evt, helpId) {
+				var charCode = (evt.which) ? evt.which : event.keyCode;
+				if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+					if (helpId != null) {
+						while (helpId.childNodes[0]) {
+							helpId.removeChild(helpId.childNodes[0]);
+						}
+						helpId.appendChild(document.createTextNode("Mobile number must be digits only!"));
+					}
+					//pinCode.focus();
+					return false;
+				}
+				else {
+					if (helpId != null) {
+						// Remove any warnings that may exist
+						while (helpId.childNodes[0]) {
+							helpId.removeChild(helpId.childNodes[0]);
+						}
+					}
+				}
+				//return true;
+			}
+			function isCoursesValid(inputField, helpId) {
+				var courses = document.myForm.Courses;
+				var flag = true;
+				for (var i = 0; i < courses.length; i++) {
+					if (courses[i].checked) {
+						flag = false;
+						break;
+					}
+				}
+				if (helpId != null) {
+					// Remove any warnings that may exist
+					while (helpId.childNodes[0]) {
+						helpId.removeChild(helpId.childNodes[0]);
+					}
+				}
+				if (flag) {
+					helpId.appendChild(document.createTextNode("Please select one course!"));
+					courses[0].focus();
+					return false;
+
+				}
+			}
+		</script>
+	</body>
+	</html>

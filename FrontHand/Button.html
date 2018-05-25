@@ -1,0 +1,16 @@
+<title>Disable/enable Button</title>
+<div style= "background:lightblue">
+<input type="checkbox" id="c1" onchange="Check()"/> I accept <br /><br />
+
+<input type="button" id="btn" value="Check" style= "color:red" disabled/>
+</div>
+<script type="text/javascript">
+    function Check() {
+        var c1 = document.getElementById("c1");
+        if (c1.checked) {
+            document.getElementById('btn').disabled = !true; 
+        } else {
+            document.getElementById('btn').disabled = true; 
+        }
+    }
+</script>

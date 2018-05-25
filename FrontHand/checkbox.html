@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Chandradeep Yadav</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<input type="checkbox" id="selectAll"/> Select All <br>
+<input type="checkbox" class="check" name="check[]"> Java <br>
+<input type="checkbox" class="check" name="check[]"> Html <br>
+<input type="checkbox" class="check" name="check[]"> Ruby <br>
+<input type="checkbox" class="check" name="check[]"> Json <br>
+<input type="checkbox" class="check" name="check[]"> Camunda <br>
+<input type="checkbox" class="check" name="check[]"> Python<br>
+
+<script>
+	$("#selectAll").change
+	(
+		function()
+			{ 
+		var status = this.checked; 
+		$('.check').each
+		(
+			function()
+		{
+		this.checked = status; 
+		}
+		);
+		}
+		);
+		$('.check').change
+		(
+		function()
+		{ 
+		if(this.checked == false)
+		{ 
+		$("#selectAll")[0].checked = false;
+		}
+		if ($('.check:checked').length == $('.check').length )
+		{ 
+		$("#selectAll")[0].checked = true;
+		}
+		}
+		);
+</script>
+</body>
+</html>
